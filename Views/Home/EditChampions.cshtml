@@ -1,0 +1,40 @@
+﻿@model List<LeagueOfLegendsMVC.Models.ChampionModel>
+
+@{
+    ViewData["Title"] = "Edit Champions";
+}
+
+<h2>Edit Champions</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Blue Essence</th>
+            <th>Riot Points</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var champion in Model)
+        {
+                <tr>
+                    <td>@champion.Name</td>
+                    <td>@champion.Role</td>
+                    <td>@champion.BlueEssence</td>
+                    <td>@champion.RiotPoints</td>
+                    <td><img src="@champion.Image" alt="@champion.Name" style="max-width: 100px; max-height: 100px;" /></td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = champion.Id })">Edit</a> |
+                        <a href="@Url.Action("Delete", new { id = champion.Id })">Delete</a>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Create" class="btn btn-primary">Add New Champion</a>
+</div>

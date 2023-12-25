@@ -1,0 +1,34 @@
+﻿@model LeagueOfLegendsMVC.Models.ChampionModel
+
+@{
+    ViewData["Title"] = "Edit Champion";
+}
+
+<h2>Edit Champion</h2>
+
+<form asp-action="Edit" method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="Id" />
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Role"></label>
+        <input asp-for="Role" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="BlueEssence"></label>
+        <input asp-for="BlueEssence" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="RiotPoints"></label>
+        <input asp-for="RiotPoints" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Image"></label>
+        <input asp-for="Image" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<a asp-action="EditChampions">Back to List</a>

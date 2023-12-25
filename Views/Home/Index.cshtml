@@ -1,0 +1,72 @@
+﻿@model List<LeagueOfLegendsMVC.Models.ChampionModel>
+
+@{
+    ViewData["Title"] = "Champion List";
+}
+
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .page-item {
+        margin: 0 5px;
+    }
+
+    .page-item.active a {
+        background-color: #007bff;
+        color: #fff;
+    }
+</style>
+
+<h2>Champion List</h2>
+
+<form asp-action="Index" method="get">
+    <div class="form-group">
+        <label for="search">Search:</label>
+        <input type="text" name="search" class="form-control" value="@ViewBag.SearchTerm" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Blue Essence</th>
+            <th>Riot Points</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var champion in Model)
+        {
+            if (string.IsNullOrEmpty(ViewBag.SearchTerm) ||
+                champion.Name.Contains(ViewBag.SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                champion.Role.Contains(ViewBag.SearchTerm, StringComparison.OrdinalIgnoreCase))
+            {
+                        <tr>
+                            <td>@champion.Name</td>
+                            <td>@champion.Role</td>
+                            <td>@champion.BlueEssence</td>
+                            <td>@champion.RiotPoints</td>
+                            <td><img src="@champion.Image" alt="@champion.Name" style="max-width: 100px; max-height: 100px;" /></td>
+                        </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div class="pagination">
+    <ul class="pagination">
+        @for (int i = 1; i <= Math.Ceiling((double)ViewBag.TotalChampions / ViewBag.PageSize); i++)
+        {
+                <li class="page-item @(i == ViewBag.PageNumber ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = ViewBag.PageSize, search = ViewBag.SearchTerm })">@i</a>
+                </li>
+        }
+    </ul>
+</div>
